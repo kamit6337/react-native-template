@@ -43,6 +43,7 @@ async function main() {
   console.log("Expo app created successfully!");
 
   // Optionally, start Expo's development server
+
   // console.log("Starting Expo development server...");
   // execSync("npx expo start", { cwd: projectPath, stdio: "inherit" });
 }
