@@ -12,11 +12,17 @@ function copyTemplate(destFolder) {
 
 function installDependencies(destFolder) {
   console.log("Installing dependencies...");
+
+  // Run npm install (you can change this to yarn if you prefer)
   execSync("npm install", { cwd: destFolder, stdio: "inherit" });
+
+  // Optional: If you want to ensure that Expo dependencies are installed properly
+  console.log("Installing Expo CLI dependencies...");
+  execSync("npm install expo", { cwd: destFolder, stdio: "inherit" });
 }
 
 async function main() {
-  const projectName = process.argv[2] || "my-react-app";
+  const projectName = process.argv[2] || "my-expo-app";
   const projectPath = path.resolve(process.cwd(), projectName);
 
   if (fs.existsSync(projectPath)) {
@@ -28,7 +34,11 @@ async function main() {
   copyTemplate(projectPath);
   installDependencies(projectPath);
 
-  console.log("React app created successfully!");
+  console.log("Expo app created successfully!");
+
+  // Optionally, you can even run Expo's development server right after setup
+  // console.log("Starting Expo development server...");
+  // execSync("npx expo start", { cwd: projectPath, stdio: "inherit" });
 }
 
 main();
