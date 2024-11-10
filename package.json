@@ -1,7 +1,24 @@
 {
-  "name": "template",
+  "name": "amit-expo-app",
   "main": "expo-router/entry",
   "version": "1.0.0",
+  "bin": {
+    "amit-expo-app": "./index.js"
+  },
+  "files": [
+    "template",
+    "index.js",
+    "package.json",
+    "package-lock.json",
+    "README.md"
+  ],
+  "keywords": [
+    "expo",
+    "app",
+    "template"
+  ],
+  "author": "Amit Kumar",
+  "license": "MIT",
   "scripts": {
     "start": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
