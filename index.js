@@ -13,30 +13,36 @@ function copyTemplate(destFolder) {
 function installDependencies(destFolder) {
   console.log("Installing dependencies...");
 
-  // Run npm install (you can change this to yarn if you prefer)
+  // Run npm install
   execSync("npm install", { cwd: destFolder, stdio: "inherit" });
 
-  // Optional: If you want to ensure that Expo dependencies are installed properly
+  // Optionally install Expo CLI dependencies
   console.log("Installing Expo CLI dependencies...");
   execSync("npm install expo", { cwd: destFolder, stdio: "inherit" });
 }
 
 async function main() {
   const projectName = process.argv[2] || "my-expo-app";
-  const projectPath = path.resolve(process.cwd(), projectName);
+  const isCurrentDir = projectName === ".";
+  const projectPath = isCurrentDir
+    ? process.cwd()
+    : path.resolve(process.cwd(), projectName);
 
-  if (fs.existsSync(projectPath)) {
+  if (!isCurrentDir && fs.existsSync(projectPath)) {
     console.log(`Error: Directory ${projectName} already exists.`);
     process.exit(1);
   }
 
-  fs.mkdirSync(projectPath);
+  if (!isCurrentDir) {
+    fs.mkdirSync(projectPath);
+  }
+
   copyTemplate(projectPath);
   installDependencies(projectPath);
 
   console.log("Expo app created successfully!");
 
-  // Optionally, you can even run Expo's development server right after setup
+  // Optionally, start Expo's development server
   // console.log("Starting Expo development server...");
   // execSync("npx expo start", { cwd: projectPath, stdio: "inherit" });
 }
